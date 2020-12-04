@@ -47,10 +47,10 @@ new_y=$((y + display_height))
 #     new_x=$((new_x - screen_width))
 # fi
 
-# height=$(xdotool getwindowgeometry "$window_id" | awk '/Geometry:/ { print $2 }'|cut -d"x" -f2)
-# if [ "$((new_y + height / 2))" -gt "$screen_height" ]; then
-#     new_y=$((new_y - screen_height))
-# fi
+height=$(xdotool getwindowgeometry "$window_id" | awk '/Geometry:/ { print $2 }'|cut -d"x" -f2)
+if [ "$((new_y + height / 2))" -gt "$screen_height" ]; then
+    new_y=$((new_y - screen_height))
+fi
 
 # Don't move off the left side.
 if [ "$new_x" -lt 0 ]; then
