@@ -36,21 +36,21 @@ x=$(( x - x_offset))
 y=$(( y - y_offset))
 
 # Compute new X position
-new_x=$((x + display_width))
+new_x=$((x - display_width))
 # Compute new Y position
 new_y=$((y + display_height))
 
 # If we would move off the right-most monitor, we set it to the left one.
 # We also respect the window's width here: moving a window off more than half its width won't happen.
-width=$(xdotool getwindowgeometry "$window_id" | awk '/Geometry:/ { print $2 }'|cut -d"x" -f1)
-if [ "$(( new_x + width / 2))" -gt "$screen_width" ]; then
-    new_x=$((new_x - screen_width))
-fi
+# width=$(xdotool getwindowgeometry "$window_id" | awk '/Geometry:/ { print $2 }'|cut -d"x" -f1)
+# if [ "$(( new_x + width / 2))" -gt "$screen_width" ]; then
+#     new_x=$((new_x - screen_width))
+# fi
 
-height=$(xdotool getwindowgeometry "$window_id" | awk '/Geometry:/ { print $2 }'|cut -d"x" -f2)
-if [ "$((new_y + height / 2))" -gt "$screen_height" ]; then
-    new_y=$((new_y - screen_height))
-fi
+# height=$(xdotool getwindowgeometry "$window_id" | awk '/Geometry:/ { print $2 }'|cut -d"x" -f2)
+# if [ "$((new_y + height / 2))" -gt "$screen_height" ]; then
+#     new_y=$((new_y - screen_height))
+# fi
 
 # Don't move off the left side.
 if [ "$new_x" -lt 0 ]; then
